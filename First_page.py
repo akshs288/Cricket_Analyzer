@@ -21,6 +21,8 @@ if st.session_state["bat_or_bal"] == "Batsman":
     dat = sorted(list(df2))
     name = st.selectbox("Batting",dat)
 
+
+
 elif st.session_state["bat_or_bal"] == "Bowler":
     s = pd.read_csv("D:\All Coding files\DATA SETS\Cricket\odbo.csv")
     df4 = s["Player"].str.split("(").str[0]
