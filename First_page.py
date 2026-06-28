@@ -23,7 +23,7 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
     odi_name = df_bat_o["Player"].str.split("(").str[0].str.strip()
     t20_names = df_bat_t20["Player"].str.split("(").str[0].str.strip()
     test_names = df_bat_test["Player"].str.split("(").str[0].str.strip()
- 
+
     def total_objects(column_name):
         tot_runs = 0
         if name in odi_name.values:
@@ -35,7 +35,6 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
         if name in test_names.values:
             tot_runs += (list(df_bat_test.loc[df_bat_test["Player"].str.split("(").str[0].str.strip() == name,column_name])[0])
         return tot_runs
-    
     
     sum_avg = 0
     c = 0   
@@ -89,7 +88,7 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
     col5,col6,col7,col8 = st.columns(4)
     
     # Now defining Stats
-    col1.metric("Total Runs 🎯",tot_Runs,border = True)
+    col1.metric("Total Runs 🎯",tot_Runs,"All Formats",border = True)
     col2.metric("Average 💥",final_avg,border = True)
     col3.metric("Highest Run 👑",highest_Run,border = True)
     col4.metric("Total Century 🚀",century,border = True)
@@ -102,7 +101,6 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
         
     except Exception as e:
         pass        
-
 
 def detail_bowl_player(name,file_path):
     # matches = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Mat"])[0]
