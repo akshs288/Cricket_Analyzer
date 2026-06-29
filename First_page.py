@@ -88,7 +88,7 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
     col5,col6,col7,col8 = st.columns(4)
     
     # Now defining Stats
-    col1.metric("Total Runs 🎯",tot_Runs,"All Formats",border = True)
+    col1.metric("Total Runs 🎯",tot_Runs,border = True)
     col2.metric("Average 💥",final_avg,border = True)
     col3.metric("Highest Run 👑",highest_Run,border = True)
     col4.metric("Total Century 🚀",century,border = True)
