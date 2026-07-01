@@ -102,25 +102,29 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
     except Exception as e:
         pass        
 
-def detail_bowl_player(name,file_path):
-    # matches = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Mat"])[0]
-    # wickets = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Wkts"])[0]
-    # Avg = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Ave"])[0]
-    # Economoy = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Econ"])[0]
-    # tot_ball = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Balls"])[0]
-    # run = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Runs"])[0]
+def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
+    df_bowl_o = pd.read_csv(file_path_o)
+    df_bowl_t20 = pd.read_csv(file_path_t20)
+    df_bowl_test = pd.read_csv(file_path_test)
+
+    
+    matches = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Mat"])[0]
+    wickets = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Wkts"])[0]
+    Avg = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Ave"])[0]
+    Economoy = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Econ"])[0]
+    tot_ball = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Balls"])[0]
+    run = list(df_bow.loc[df_bow["Player"].str.split("(").str[0] == name2,"Runs"])[0]
         
-    # col9,col10,col11,col12 = st.columns(4)
-    # col13,col14,col15,col16 = st.columns(4)
+    col9,col10,col11,col12 = st.columns(4)
+    col13,col14,col15,col16 = st.columns(4)
         
     # # Now defining Stats
-    # col9.metric("Total Wickets🎯",wickets,border = True)
-    # col10.metric("Total Matches⚡",matches,border = True)
-    # col11.metric("Average🔥",Avg,border = True)
-    # col12.metric("Economy💣",Economoy,border = True)
-    # col13.metric("Total Balls🥎",tot_ball,border = True)
-    # col14.metric("Total Runs🏏",run,border = True)
-    pass
+    col9.metric("Total Wickets🎯",wickets,border = True)
+    col10.metric("Total Matches⚡",matches,border = True)
+    col11.metric("Average🔥",Avg,border = True)
+    col12.metric("Economy💣",Economoy,border = True)
+    col13.metric("Total Balls🥎",tot_ball,border = True)
+    col14.metric("Total Runs🏏",run,border = True)
 
 if st.session_state["bat_or_bal"] == "Batsman":
     df_o = pd.read_csv("D:\\All Coding files\\DATA SETS\\Cricket\\odb.csv")
@@ -144,4 +148,7 @@ elif st.session_state["bat_or_bal"] == "Bowler":
     dat2 = sorted(list(df4))
     name2 = st.selectbox("Bowling",dat2)
     st.write("Key Bowling Stats")
+    
+    
+    
     
