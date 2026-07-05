@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 
 st.title("Cricket Dashboard🏏")
 
@@ -100,7 +101,22 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
         col8.metric("Total 6s 6️⃣",boundaries_6,border = True)
         
     except Exception as e:
-        pass        
+        print(e)      
+        
+    runs_0 = int(list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"0"])[0])
+    st.title("Statistics of 4 and 6")
+
+    colx,coly = st.columns(2)
+    data = {"category":["4 runs","6 runs","0 runs"],"Runs":[boundaries_4,boundaries_6,runs_0]}
+    new_df = pd.DataFrame(data)
+    
+    fig = px.pie(new_df,values="Runs",names="category")
+    with colx:
+        pass
+
+    with coly:
+        st.plotly_chart(fig,use_container_width=True)
+        
 
 def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
     df_bowl_o = pd.read_csv(file_path_o)
@@ -133,6 +149,7 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         
         return Avg_,eco
 
+
     if name in odi_name.values:
         wik_bowler_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Wkts"])[0])
         tot_Wick += wik_bowler_o
@@ -145,6 +162,10 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
                 
         bow_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Balls"])[0])
         tot_balls += bow_o
+        
+        total_4 = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Balls"])[0])
+        
+        
         
     if name in t20_name.values:
         wick_bowler_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Wkts"])[0])
