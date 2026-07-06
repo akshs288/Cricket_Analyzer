@@ -105,7 +105,6 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
         
     runs_0 = int(list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"0"])[0])
     st.title("Statistics of 4 and 6")
-
     colx,coly = st.columns(2)
     data = {"category":["4 runs","6 runs","0 runs"],"Runs":[boundaries_4,boundaries_6,runs_0]}
     new_df = pd.DataFrame(data)
