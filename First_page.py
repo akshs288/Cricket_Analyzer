@@ -101,7 +101,7 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
         col8.metric("Total 6s 6️⃣",boundaries_6,border = True)
         
     except Exception as e:
-        print(e)      
+        print(e)
         
     runs_0 = int(list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"0"])[0])
     st.title("Statistics of 4 and 6")
@@ -206,7 +206,7 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
     col14.metric("Total Runs🏏",tot_runs,border = True)
 
 if st.session_state["bat_or_bal"] == "Batsman":
-    df_o = pd.read_csv("D:\\All Coding files\\DATA SETS\\Cricket\\odb.csv")
+    df_o = pd.read_csv("D:\\All Coding files\\Mega projects\\Cricket Analysis\\odb2.csv")
     df2 = df_o["Player"].str.split("(").str[0].str.strip().to_list()
     df_t2 = pd.read_csv("D:\\All Coding files\\DATA SETS\\Cricket\\twb.csv")
     df3 = df_t2["Player"].str.split("(").str[0].str.strip().to_list()
@@ -218,13 +218,15 @@ if st.session_state["bat_or_bal"] == "Batsman":
     name = st.selectbox("Batting",dat)
     st.write("Batting Stats📊")
     
-    detail_bat_player(name,"D:\\All Coding files\\DATA SETS\\Cricket\\odb.csv","D:\\All Coding files\\DATA SETS\\Cricket\\twb.csv","D:\\All Coding files\\DATA SETS\\Cricket\\tb.csv")
+    detail_bat_player(name,"D:\\All Coding files\\Mega projects\\Cricket Analysis\\odb2.csv","D:\\All Coding files\\DATA SETS\\Cricket\\twb.csv","D:\\All Coding files\\DATA SETS\\Cricket\\tb.csv")
 
 elif st.session_state["bat_or_bal"] == "Bowler":
-    df_bow = pd.read_csv("D:\\All Coding files\\DATA SETS\\Cricket\\odbo.csv")
+    df_bow = pd.read_csv("D:\\All Coding files\\Mega projects\\Cricket Analysis\\odbo2.csv")
     df4 = df_bow["Player"].str.split("(").str[0]
     dat2 = sorted(list(df4))
     name2 = st.selectbox("Bowling",dat2)
     st.write("Key Bowling Stats📊")
     # file_path_o,file_path_t20,file_path_test
-    detail_bowl_player(name2,"D:\\All Coding files\\DATA SETS\\Cricket\\odbo.csv","D:\\All Coding files\\DATA SETS\\Cricket\\twbo.csv","D:\\All Coding files\\DATA SETS\\Cricket\\tbo.csv")
+    detail_bowl_player(name2,"D:\\All Coding files\\Mega projects\\Cricket Analysis\\odbo2.csv","D:\\All Coding files\\DATA SETS\\Cricket\\twbo.csv","D:\\All Coding files\\DATA SETS\\Cricket\\tbo.csv")
+
+
