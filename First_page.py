@@ -57,27 +57,38 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
     
     highest_Run = ""
     strike_r = ""
+    runs_0 = 0
+    
     if name in t20_names.values:
         highest_Run = list(df_bat_t20.loc[df_bat_t20["Player"].str.split("(").str[0].str.strip() == name,"HS"])[0]    
         strike_r = list(df_bat_t20.loc[df_bat_t20["Player"].str.split("(").str[0].str.strip() == name,"SR"])[0]
+        runs_0 = int(list(df_bat_t20.loc[df_bat_t20["Player"].str.split("(").str[0].str.strip() == name,"0"])[0])
 
     elif name in odi_name.values:
         highest_Run = list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"HS"])[0]
         strike_r = list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"SR"])[0]
+        runs_0 = int(list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"0"])[0])
     
     else:
         highest_Run = list(df_bat_test.loc[df_bat_test["Player"].str.split("(").str[0].str.strip() == name,"HS"])[0]
+        runs_0 = int(list(df_bat_test.loc[df_bat_test["Player"].str.split("(").str[0].str.strip() == name,"0"])[0])
         strike_r = "N/A"
-        
-    try:
-        odi_4 = int(list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"4s"])[0])
-        t20_4 = int(list(df_bat_t20.loc[df_bat_t20["Player"].str.split("(").str[0].str.strip() == name,"4s"])[0])
-        boundaries_4 = odi_4+t20_4
-        
-        odi_6 = int(list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"6s"])[0])
-        t20_6 = int(list(df_bat_t20.loc[df_bat_t20["Player"].str.split("(").str[0].str.strip() == name,"6s"])[0])
-        boundaries_6 = odi_6+t20_6
 
+        
+    boundaries_4 = 0
+    boundaries_6 = 0
+    try:
+        if name in (t20_names.values) and (name in odi_name.values):
+            odi_4 = int(list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"4s"])[0])
+            t20_4 = int(list(df_bat_t20.loc[df_bat_t20["Player"].str.split("(").str[0].str.strip() == name,"4s"])[0])
+            boundaries_4 = odi_4+t20_4
+            odi_6 = int(list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"6s"])[0])
+            t20_6 = int(list(df_bat_t20.loc[df_bat_t20["Player"].str.split("(").str[0].str.strip() == name,"6s"])[0])
+            boundaries_6 = odi_6+t20_6
+
+        else:
+            raise FileNotFoundError
+        
     except Exception as e:
         print(e)
     
@@ -102,8 +113,7 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
         
     except Exception as e:
         print(e)
-        
-    runs_0 = int(list(df_bat_o.loc[df_bat_o["Player"].str.split("(").str[0].str.strip() == name,"0"])[0])
+    
     st.title("Statistics of 4 and 6")
     colx,coly = st.columns(2)
     data = {"category":["4 runs","6 runs","0 runs"],"Runs":[boundaries_4,boundaries_6,runs_0]}
@@ -149,7 +159,7 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         return Avg_,eco
 
 
-    if name in odi_name.values:
+    if name.strip() in odi_name.str.strip().values:
         wik_bowler_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Wkts"])[0])
         tot_Wick += wik_bowler_o
         
@@ -163,10 +173,8 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         tot_balls += bow_o
         
         total_4 = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Balls"])[0])
-        
-        
-        
-    if name in t20_name.values:
+    
+    if name.strip() in t20_name.str.strip().values:
         wick_bowler_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Wkts"])[0])
         tot_Wick += wick_bowler_t20
     
@@ -179,8 +187,7 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         bow_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Overs"])[0])*6
         tot_balls += bow_t20
         
-    
-    if name in test_name.values:
+    if name.strip() in test_name.str.strip().values:
         wick_bowler_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Wkts"])[0])
         tot_Wick += wick_bowler_test
         
@@ -197,7 +204,7 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
     col13,col14,col15,col16 = st.columns(4)
     
     Avg,Economy = avg_eco_bow(name)
-    # # Now defining Stats
+    # Now defining Stats
     col9.metric("Total Wickets🎯",tot_Wick,border = True)
     col10.metric("Total Matches⚡",tot_match,border = True)
     col11.metric("Average🔥",Avg,border = True)
