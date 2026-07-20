@@ -9,6 +9,7 @@ play_name = df_o.loc[df_o["Runs"] == df_o["Runs"].max(),"Player"]  # This will r
 l = play_name.values    # This will return array of name
 run_play = df_o["Runs"].max()
 
+# Highest Run of which player
 
 st.markdown(f"""
 <div style="
@@ -37,6 +38,8 @@ st.write("")
 st.write("")
 st.write("")
 
+# Highest Average of which player
+
 st.markdown(f"""
 <div style="
 background:#1e1e1e;
@@ -56,5 +59,29 @@ border:1px solid #444;
 </div>
 """, unsafe_allow_html=True)
 
+# Highest Person who hit sixes
+six_name = list(df_o.loc[df_o["6s"] == df_o["6s"].max(),"Player"])[0]
+six_num = df_o["6s"].max()
 
+st.write("")
+st.write("")
+st.write("")
 
+st.markdown(f"""
+<div style="
+background:#1e1e1e;
+padding:20px;
+border-radius:15px;
+border:1px solid #444;
+">
+
+<h4>🏏 Highest Sixes </h4>
+
+<h1 style="color:#4CAF50;">{six_num} </h1>
+
+<h3>{six_name}</h3>
+
+<p>Highest Number of sixes in ODI</p>
+
+</div>
+""", unsafe_allow_html=True)
