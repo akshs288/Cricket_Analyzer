@@ -120,8 +120,17 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
     new_df = pd.DataFrame(data)
     
     fig = px.pie(new_df,values="Runs",names="category")
+
+    # Now Creating Bar graph
+    sorted_data = df_bat_o.sort_values(by = "Runs",ascending=False)
+    l_name = list(sorted_data.iloc[1:10]["Player"])
+    l_runs = list(sorted_data.iloc[1:10]["Runs"])
+
+    data2 = {"Player":l_name,"Runs":l_runs}
+    new_df2 = pd.DataFrame(data2)
     with colx:
-        pass
+        fig2 = px.bar(new_df2,x="Player",y="Runs")
+        st.plotly_chart(fig2,use_container_width=True)
 
     with coly:
         st.plotly_chart(fig,use_container_width=True)
@@ -191,7 +200,7 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         wick_bowler_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Wkts"])[0])
         tot_Wick += wick_bowler_test
         
-        mat_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Mat"])[0])
+        mat_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Mat"])[0]).replace("*","")
         tot_match += mat_test
         
         runs_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Runs"])[0])
