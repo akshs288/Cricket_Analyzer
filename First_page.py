@@ -114,7 +114,7 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
     except Exception as e:
         print(e)
     
-    st.title("Statistics of 4 and 6")
+    st.title("Statistics of Batsman")
     colx,coly = st.columns(2)
     data = {"category":["4 runs","6 runs","0 runs"],"Runs":[boundaries_4,boundaries_6,runs_0]}
     new_df = pd.DataFrame(data)
@@ -135,7 +135,6 @@ def detail_bat_player(name,file_path_odi,file_path_t20,file_path_test):
     with coly:
         st.plotly_chart(fig,use_container_width=True)
         
-
 def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
     df_bowl_o = pd.read_csv(file_path_o)
     df_bowl_t20 = pd.read_csv(file_path_t20)
@@ -167,7 +166,6 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         
         return Avg_,eco
 
-
     if name.strip() in odi_name.str.strip().values:
         wik_bowler_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Wkts"])[0])
         tot_Wick += wik_bowler_o
@@ -175,10 +173,10 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         mat_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Mat"])[0])
         tot_match += mat_o
         
-        runs_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Runs"])[0].replace("*",""))
+        runs_o = int(str(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Runs"])[0]).replace("*",""))
         tot_runs += runs_o
                 
-        bow_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Balls"])[0])
+        bow_o = int(str(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Balls"])[0]).replace("*",""))
         tot_balls += bow_o
             
     if name.strip() in t20_name.str.strip().values:
@@ -188,7 +186,7 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         mat_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Mat"])[0])
         tot_match += mat_t20
     
-        runs_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Runs"])[0].replace("*",""))
+        runs_t20 = int(str(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Runs"])[0]).replace("*",""))
         tot_runs += runs_t20
         
         bow_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Overs"])[0])*6
@@ -198,13 +196,13 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         wick_bowler_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Wkts"])[0])
         tot_Wick += wick_bowler_test
         
-        mat_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Mat"])[0].replace("*",""))
+        mat_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Mat"])[0])
         tot_match += mat_test
         
-        runs_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Runs"])[0].replace("*",""))
+        runs_test = int(str(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Runs"])[0]).replace("*",""))
         tot_runs += runs_test
         
-        bow_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Balls"])[0].replace("*",""))
+        bow_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Balls"])[0])
         tot_balls += bow_test
 
     col9,col10,col11,col12 = st.columns(4)
@@ -218,6 +216,8 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
     col12.metric("Economy💣",Economy,border = True)
     col13.metric("Total Balls🥎",tot_balls,border = True)
     col14.metric("Total Runs🏏",tot_runs,border = True)
+    
+    
 
 if st.session_state["bat_or_bal"] == "Batsman":
     df_o = pd.read_csv("D:\\All Coding files\\Mega projects\\Cricket Analysis\\odb2.csv")
