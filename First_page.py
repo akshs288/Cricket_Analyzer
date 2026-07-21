@@ -159,11 +159,11 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
             
         elif name_of_player in t20_name.values:
             Avg_ += float(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name_of_player,"Ave"])[0])
-            eco += int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name_of_player,"Ave"])[0])
+            eco += int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name_of_player,"Econ"])[0])
         
         elif name_of_player in test_name.values:
             Avg_ += float(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name_of_player,"Ave"])[0])
-            eco += float(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name_of_player,"Ave"])[0])
+            eco += float(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name_of_player,"Econ"])[0])
         
         return Avg_,eco
 
@@ -175,14 +175,12 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         mat_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Mat"])[0])
         tot_match += mat_o
         
-        runs_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Runs"])[0])
+        runs_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Runs"])[0].replace("*",""))
         tot_runs += runs_o
                 
         bow_o = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Balls"])[0])
         tot_balls += bow_o
-        
-        total_4 = int(list(df_bowl_o.loc[df_bowl_o["Player"].str.split("(").str[0] == name,"Balls"])[0])
-    
+            
     if name.strip() in t20_name.str.strip().values:
         wick_bowler_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Wkts"])[0])
         tot_Wick += wick_bowler_t20
@@ -190,7 +188,7 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         mat_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Mat"])[0])
         tot_match += mat_t20
     
-        runs_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Runs"])[0])
+        runs_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Runs"])[0].replace("*",""))
         tot_runs += runs_t20
         
         bow_t20 = int(list(df_bowl_t20.loc[df_bowl_t20["Player"].str.split("(").str[0] == name,"Overs"])[0])*6
@@ -200,13 +198,13 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
         wick_bowler_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Wkts"])[0])
         tot_Wick += wick_bowler_test
         
-        mat_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Mat"])[0]).replace("*","")
+        mat_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Mat"])[0].replace("*",""))
         tot_match += mat_test
         
-        runs_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Runs"])[0])
+        runs_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Runs"])[0].replace("*",""))
         tot_runs += runs_test
         
-        bow_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Balls"])[0])
+        bow_test = int(list(df_bowl_test.loc[df_bowl_test["Player"].str.split("(").str[0] == name,"Balls"])[0].replace("*",""))
         tot_balls += bow_test
 
     col9,col10,col11,col12 = st.columns(4)
