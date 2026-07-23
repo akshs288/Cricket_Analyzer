@@ -217,7 +217,19 @@ def detail_bowl_player(name,file_path_o,file_path_t20,file_path_test):
     col13.metric("Total Balls🥎",tot_balls,border = True)
     col14.metric("Total Runs🏏",tot_runs,border = True)
     
+    # df_bowl_o
+    sorted_data = df_bowl_o.sort_values(by = "Wkts",ascending=False)
+    wick_num = list(sorted_data.iloc[1:10]["Wkts"])
+    wick_name = list(sorted_data.iloc[1:10]["Player"])
+
+    data2 = {"Names":wick_name,"Wickets":wick_num}
+    new_df = pd.DataFrame(data2)
     
+    cola, = st.columns(1)
+    with cola:
+        bar_fig = px.bar(new_df,x="Names",y="Wickets")
+        st.plotly_chart(bar_fig)
+
 
 if st.session_state["bat_or_bal"] == "Batsman":
     df_o = pd.read_csv("D:\\All Coding files\\Mega projects\\Cricket Analysis\\odb2.csv")

@@ -184,8 +184,13 @@ border:1px solid #444;
 """, unsafe_allow_html=True)
 
 
-st.subheader("Most Frequent Questions are asked")
+st.write("")
+st.write("")
+st.write("")
 
+questions = ("Which Batter Played highest number of innings ??", "Who has highest not out score ??","")
+
+st.selectbox("Most Frequent Questions are asked",questions)
 
 
 
